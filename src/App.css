@@ -1,0 +1,11 @@
+@font-face {
+  font-family: Roboto;
+  src: url('./Roboto/Roboto-Black.ttf');
+}
+@font-face {
+  font-family: Roboto-Light;
+  src: url('./Roboto/Roboto-Light.ttf');
+}
+#city_title {
+  font-family: 'Roboto';
+}
