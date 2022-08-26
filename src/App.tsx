@@ -32,6 +32,8 @@ function App() {
           process.env.REACT_APP_API_KEY
       );
 
+      console.log(y);
+
       const data: weatherInterface = {
         cityName: y.data.name,
         stateName: x.data[0].state,

@@ -81,6 +81,13 @@ const X = ({
         }
         break;
 
+        case "thunderstorm":
+          if (bannerRef.current !== null) {
+            bannerRef.current.style.backgroundImage =
+              "linear-gradient(0deg, darkgrey, darkgrey)";
+          }
+          break;
+
       default:
         if (bannerRef.current !== null) {
           bannerRef.current.style.backgroundColor = "yellow";
