@@ -55,8 +55,6 @@ const X = ({
               process.env.REACT_APP_API_KEY
           );
 
-          console.log(req2);
-
           const obj = [...w];
           const d: WeatherDetails = {
             cityName: req2.data.name,
