@@ -94,7 +94,12 @@ const X = ({
       >
         <Form.Control
           ref={inputBarRef}
-          style={{ maxWidth: "400px", border: "0px", fontSize: "30px" }}
+          style={{
+            maxWidth: "400px",
+            border: "3px solid grey",
+            fontSize: "30px",
+            borderRadius: "25px",
+          }}
           type="text"
           placeholder="Search any city"
           onChange={(e) => {

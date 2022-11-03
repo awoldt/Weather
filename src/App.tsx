@@ -5,7 +5,6 @@ import Search from "./components/SearchBar";
 import { useState, useEffect } from "react";
 import weatherInterface from "./interfaces/WeatherDetails";
 import axios from "axios";
-import { Helmet, HelmetProvider } from "react-helmet-async";
 
 function App() {
   //weather details are null on initial render
@@ -55,33 +54,22 @@ function App() {
   }, []);
 
   return (
-    <HelmetProvider>
-      <Helmet>
-        <title>React Weather App</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link
-          rel="apple-touch-icon"
-          sizes="180x180"
-          href="/apple-touch-icon.png"
-        />
-        <link
-          rel="icon"
-          type="image/png"
-          sizes="32x32"
-          href="/favicon-32x32.png"
-        />
-        <link
-          rel="icon"
-          type="image/png"
-          sizes="16x16"
-          href="/favicon-16x16.png"
-        />
-        <link rel="manifest" href="/site.webmanifest" />
-        <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5" />
-        <meta name="msapplication-TileColor" content="#da532c" />
-        <meta name="theme-color" content="#ffffff" />
-      </Helmet>
+    <>
       <Container>
+        <p className="text-center mt-3 mb-3">
+          All weather data collected from{" "}
+          <a
+            href="https://openweathermap.org/"
+            title="Visit openweathermap official website"
+            target={"_blank"}
+          >
+            <img
+              src="/openweathericon.svg"
+              alt="openweather icon"
+              width={100}
+            />
+          </a>
+        </p>
         {weatherDetails.map((banner, index) => {
           return (
             <div style={{ padding: "25px" }}>
@@ -149,7 +137,7 @@ function App() {
           </a>
         </span>
       </div>
-    </HelmetProvider>
+    </>
   );
 }
 
