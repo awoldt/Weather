@@ -1,5 +1,5 @@
 import WeatherInterface from "../../interfaces/WeatherDetails";
-import { calcLength, motion } from "framer-motion";
+import { motion } from "framer-motion";
 
 const X = ({
   data,
@@ -16,39 +16,35 @@ const X = ({
 }) => {
   return (
     <div>
-      {data.weatherStats.temp! && data.tempFormat == "C" && (
+      {data.weatherStats.temp! && data.tempFormat === "F" && (
         <motion.div animate={{ opacity: iconOpacity }}>
           <span style={{ fontSize: "60px" }}>
-            {(data.weatherStats.temp - 273.15).toFixed(0)}
-            <span style={{ fontSize: "25px", marginLeft: "5px" }}>&#176;C</span>
+            {Number(
+              (((data.weatherStats.temp - 273.15) * 9) / 5 + 32).toFixed(0)
+            )}
+            <span style={{ fontSize: "25px", marginLeft: "5px" }}>&#176;F</span>
           </span>
 
           <div>
+            <span style={{ fontSize: "18px" }}>F</span>
             <span
               style={{
-                marginRight: "10px",
-                cursor: "pointer",
-              }}
-            >
-              C
-            </span>
-            <span
-              style={{
+                marginLeft: "10px",
                 cursor: "pointer",
               }}
               className="text-secondary"
               onClick={() => {
-                const obj: WeatherInterface = data;
-                obj.tempFormat = "F";
-                updateBanners.splice(index, 1, obj);
+                const obj: WeatherInterface = data; //current banner data
+                obj.tempFormat = "C";
+
+                updateBanners.splice(index, 1, obj); //replaces old banner data with new formated temp
                 updateBanners = [...updateBanners];
-                update(updateBanners);
+                update(updateBanners); //setState re-render
               }}
             >
-              F
+              C
             </span>
           </div>
-
           {data.weatherStats.temp <= 272.039 && (
             <span>
               <p>
@@ -69,34 +65,38 @@ const X = ({
           )}
         </motion.div>
       )}
-      {data.weatherStats.temp! && data.tempFormat == "F" && (
+      {data.weatherStats.temp! && data.tempFormat === "C" && (
         <motion.div animate={{ opacity: iconOpacity }}>
           <span style={{ fontSize: "60px" }}>
-            {Number(
-              (((data.weatherStats.temp - 273.15) * 9) / 5 + 32).toFixed(0)
-            )}
-            <span style={{ fontSize: "25px", marginLeft: "5px" }}>&#176;F</span>
+            {(data.weatherStats.temp - 273.15).toFixed(0)}
+            <span style={{ fontSize: "25px", marginLeft: "5px" }}>&#176;C</span>
           </span>
 
           <div>
             <span
               style={{
-                marginRight: "10px",
                 cursor: "pointer",
               }}
               className="text-secondary"
               onClick={() => {
-                const obj: WeatherInterface = data; //current banner data
-                obj.tempFormat = "C";
-
-                updateBanners.splice(index, 1, obj); //replaces old banner data with new formated temp
+                const obj: WeatherInterface = data;
+                obj.tempFormat = "F";
+                updateBanners.splice(index, 1, obj);
                 updateBanners = [...updateBanners];
-                update(updateBanners); //setState re-render
+                update(updateBanners);
+              }}
+            >
+              F
+            </span>
+            <span
+              style={{
+                marginLeft: "10px",
+                cursor: "pointer",
+                fontSize: "18px",
               }}
             >
               C
             </span>
-            <span>F</span>
           </div>
 
           {data.weatherStats.temp <= 272.039 && (

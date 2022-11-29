@@ -81,12 +81,12 @@ const X = ({
         }
         break;
 
-        case "thunderstorm":
-          if (bannerRef.current !== null) {
-            bannerRef.current.style.backgroundImage =
-              "linear-gradient(0deg, darkgrey, darkgrey)";
-          }
-          break;
+      case "thunderstorm":
+        if (bannerRef.current !== null) {
+          bannerRef.current.style.backgroundImage =
+            "linear-gradient(0deg, darkgrey, darkgrey)";
+        }
+        break;
 
       default:
         if (bannerRef.current !== null) {
@@ -127,7 +127,7 @@ const X = ({
         {/* md screen */}
         {data.cityName! && window.innerWidth <= 768 && (
           <motion.div animate={{ opacity: iconOpacity }}>
-            {data.mainWeather == "Mist" && (
+            {data.mainWeather === "Mist" && (
               <h1
                 style={{ fontSize: "40px", color: "black" }}
                 id="city_title"
@@ -150,7 +150,7 @@ const X = ({
         {/* lg and above creen */}
         {data.cityName! && window.innerWidth > 769 && (
           <motion.div animate={{ opacity: iconOpacity }}>
-            {data.mainWeather == "Mist" && (
+            {data.mainWeather === "Mist" && (
               <h1
                 style={{ fontSize: "75px", color: "black" }}
                 id="city_title"
@@ -175,7 +175,9 @@ const X = ({
             animate={{ opacity: iconOpacity }}
             style={{ marginBottom: "15px" }}
           >
-            <span style={{ fontFamily: "Roboto-Light" }}>{data.stateName}</span>
+            <span style={{ fontFamily: "Roboto-Light", fontWeight: "bold" }}>
+              {data.stateName}
+            </span>
           </motion.div>
         )}
 

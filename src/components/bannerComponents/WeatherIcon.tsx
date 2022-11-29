@@ -1,7 +1,7 @@
 const X = ({ w, weather }: { w: string; weather: string }) => {
   return (
     <div className="text-center">
-      {w == "Clouds" && (
+      {w === "Clouds" && (
         <>
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -22,7 +22,7 @@ const X = ({ w, weather }: { w: string; weather: string }) => {
           </h2>{" "}
         </>
       )}
-      {w == "Snow" && (
+      {w === "Snow" && (
         <>
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -42,7 +42,7 @@ const X = ({ w, weather }: { w: string; weather: string }) => {
           </h2>{" "}
         </>
       )}
-      {w == "Drizzle" && (
+      {w === "Drizzle" && (
         <>
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -62,7 +62,7 @@ const X = ({ w, weather }: { w: string; weather: string }) => {
           </h2>{" "}
         </>
       )}
-      {w == "Mist" && (
+      {w === "Mist" && (
         <>
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -86,7 +86,7 @@ const X = ({ w, weather }: { w: string; weather: string }) => {
           </h2>{" "}
         </>
       )}
-      {w == "Rain" && (
+      {w === "Rain" && (
         <>
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -110,7 +110,7 @@ const X = ({ w, weather }: { w: string; weather: string }) => {
           </h2>{" "}
         </>
       )}
-      {w == "Clear" && (
+      {w === "Clear" && (
         <>
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -127,14 +127,14 @@ const X = ({ w, weather }: { w: string; weather: string }) => {
             style={{
               fontFamily: "Roboto",
               fontSize: "25px",
-              color: "lightgray",
+              color: "white",
             }}
           >
             {weather}
           </h2>
         </>
       )}
-      {w == "Thunderstorm" && (
+      {w === "Thunderstorm" && (
         <>
           <svg
             xmlns="http://www.w3.org/2000/svg"

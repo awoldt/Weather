@@ -10,13 +10,11 @@ interface coordinateSearch {
 
 const X = ({
   setW,
-  setIconOpacity,
   w,
   addCity,
   listOfCities,
 }: {
   setW: React.Dispatch<React.SetStateAction<WeatherDetails[]>>;
-  setIconOpacity: React.Dispatch<React.SetStateAction<number>>;
   w: WeatherDetails[];
   addCity: React.Dispatch<React.SetStateAction<string[]>>;
   listOfCities: string[];
@@ -26,18 +24,16 @@ const X = ({
   const inputBarRef = useRef<HTMLInputElement>(null);
 
   async function searchCity() {
-    if (query == "") {
+    if (query === "") {
       alert("Enter city before searching");
     } else {
-      setIconOpacity(0);
-
       const req = await axios.get(
         "https://api.openweathermap.org/geo/1.0/direct?q=" +
           query.toLowerCase() +
           "&limit=1&appid=" +
           process.env.REACT_APP_API_KEY
       );
-      if (req.status == 200) {
+      if (req.status === 200) {
         //if user query actually returned weather data
         if (req.data.length !== 0) {
           //find weather by coordinates
@@ -55,31 +51,31 @@ const X = ({
               process.env.REACT_APP_API_KEY
           );
 
-          const obj = [...w];
-          const d: WeatherDetails = {
-            cityName: req2.data.name,
-            stateName: req.data[0].state,
-            mainWeather: req2.data.weather[0].main,
-            weatherStats: {
-              temp: req2.data.main.temp,
-            },
-            tempFormat: "F",
-          };
+          //make sure city is not already added to list
+          if (!listOfCities.includes(req2.data.name)) {
+            const obj = [...w];
+            const d: WeatherDetails = {
+              cityName: req2.data.name,
+              stateName: req.data[0].state,
+              mainWeather: req2.data.weather[0].main,
+              weatherStats: {
+                temp: req2.data.main.temp,
+              },
+              tempFormat: "F",
+            };
+            obj.push(d);
+            //add city to list of cities displayed
+            const q = [...listOfCities];
+            q.push(req2.data.name);
+            addCity(q);
+            setW(obj);
 
-          obj.push(d);
-
-          //add city to list of cities displayed
-          const q = [...listOfCities];
-          q.push(req2.data.name);
-          addCity(q);
-
-          setW(obj);
-
-          setIconOpacity(1);
-          window.scrollTo(0, document.body.scrollHeight);
+            window.scrollTo(0, document.body.scrollHeight);
+          } else {
+            alert("Already showing weather for " + req2.data.name);
+          }
         } else {
           alert("Cannot find weather data for " + query);
-          setIconOpacity(1);
         }
       } else {
         alert("There was an error processing your request");
@@ -106,7 +102,7 @@ const X = ({
             setQuery(e.target.value);
           }}
           onKeyDown={(e) => {
-            if (e.key == "Enter") {
+            if (e.key === "Enter") {
               if (inputBarRef.current!) {
                 inputBarRef.current.value = "";
               }
