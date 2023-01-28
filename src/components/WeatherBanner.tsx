@@ -88,6 +88,13 @@ const X = ({
         }
         break;
 
+      case "haze":
+        if (bannerRef.current !== null) {
+          bannerRef.current.style.backgroundImage =
+            "linear-gradient(0deg, #9393A5, #C4BDC9)";
+        }
+        break;
+
       default:
         if (bannerRef.current !== null) {
           bannerRef.current.style.backgroundColor = "yellow";

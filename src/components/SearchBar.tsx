@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useState, useRef } from "react";
 import WeatherDetails from "../interfaces/WeatherDetails";
-import { Form } from "react-bootstrap";
+import { Form, Spinner } from "react-bootstrap";
 
 interface coordinateSearch {
   lat: number;
@@ -20,11 +20,14 @@ const X = ({
   listOfCities: string[];
 }) => {
   const [query, setQuery] = useState<String>("");
+  const [loading, setLoading] = useState<boolean>(false);
 
   const inputBarRef = useRef<HTMLInputElement>(null);
 
   async function searchCity() {
+    setLoading(!loading);
     if (query === "") {
+      setLoading(true);
       alert("Enter city before searching");
     } else {
       const req = await axios.get(
@@ -71,13 +74,19 @@ const X = ({
             setW(obj);
 
             window.scrollTo(0, document.body.scrollHeight);
+            setLoading(false);
           } else {
+            setLoading(false);
             alert("Already showing weather for " + req2.data.name);
           }
         } else {
+          setLoading(false);
           alert("Cannot find weather data for " + query);
         }
+        setQuery("");
+        setLoading(false);
       } else {
+        setLoading(false);
         alert("There was an error processing your request");
       }
     }
@@ -85,33 +94,36 @@ const X = ({
 
   return (
     <>
-      <span
-        style={{ display: "flex", marginTop: "50px", marginBottom: "50px" }}
-      >
-        <Form.Control
-          ref={inputBarRef}
-          style={{
-            maxWidth: "400px",
-            border: "3px solid grey",
-            fontSize: "30px",
-            borderRadius: "25px",
-          }}
-          type="text"
-          placeholder="Search any city"
-          onChange={(e) => {
-            setQuery(e.target.value);
-          }}
-          onKeyDown={(e) => {
-            if (e.key === "Enter") {
-              if (inputBarRef.current!) {
-                inputBarRef.current.value = "";
-              }
+      {!loading && (
+        <span
+          style={{ display: "flex", marginTop: "50px", marginBottom: "50px" }}
+        >
+          <Form.Control
+            ref={inputBarRef}
+            style={{
+              maxWidth: "400px",
+              border: "3px solid grey",
+              fontSize: "30px",
+              borderRadius: "25px",
+            }}
+            type="text"
+            placeholder="Search any city"
+            onChange={(e) => {
+              setQuery(e.target.value);
+            }}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                if (inputBarRef.current!) {
+                  inputBarRef.current.value = "";
+                }
 
-              searchCity();
-            }
-          }}
-        />
-      </span>
+                searchCity();
+              }
+            }}
+          />
+        </span>
+      )}
+      {loading && <Spinner animation="border" variant="primary" />}
     </>
   );
 };
